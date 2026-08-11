@@ -22,6 +22,9 @@ public class Curso {
     @Column(name = "NOMBRE", nullable = false, length = 100, unique = true)
     private String nombre;
 
-    @Column(name = "DESCRIPCION", nullable = false, length = 50)
-    private String apellidoPaterno;
+    @Column(name = "DESCRIPCION", length = 50)
+    private String descripcion;
+
+    @Column(name = "CREDITOS", nullable = false)
+    private Integer creditos;
 }
