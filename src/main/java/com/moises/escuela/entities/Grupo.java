@@ -1,10 +1,14 @@
 package com.moises.escuela.entities;
 
+import com.moises.escuela.utils.StringCustomUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "GRUPOS", uniqueConstraints = @UniqueConstraint(
@@ -36,4 +40,20 @@ public class Grupo {
 
     @Column(name = "PERIODO",length = 20, nullable = false)
     private String periodo;
+
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo",
+            orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Horario> horarios = new ArrayList<>();
+
+    public void actualizar(Curso curso, Maestro maestro, Aula aula, String periodo){
+        this.curso = curso;
+        this.maestro = maestro;
+        this.aula = aula;
+        this.periodo = periodo;
+    }
+
+    public void asignarCurso(Curso curso) {
+        this.curso = curso;
+    }
 }

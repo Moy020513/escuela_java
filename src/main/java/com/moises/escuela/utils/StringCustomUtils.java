@@ -3,10 +3,10 @@ package com.moises.escuela.utils;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class StringCustonUtils {
+public class StringCustomUtils {
 
-    private static final DateTimeFormatter FORMATOFECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
-
+    public static final DateTimeFormatter FORMATOFECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter FORMATOHORA = DateTimeFormatter.ofPattern("HH:mm");
     public static void validarNoVacio(String texto, String mensaje) {
         if (texto == null || texto.isBlank())
             throw new IllegalArgumentException(mensaje);

@@ -1,5 +1,6 @@
 package com.moises.escuela.entities;
 
+import com.moises.escuela.utils.StringCustomUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +25,11 @@ public class Aula {
 
     @Column(name = "CAPACIDAD", nullable = false)
     private Integer capacidad;
+
+    public void actualizar(String nombre, Integer capacidad){
+        StringCustomUtils.validarTamanio(nombre, 1, 100,
+                "El nombre es requerido y debe tener entre 1 y 100 caracteres");
+        this.nombre = nombre.trim();
+        this.capacidad = capacidad;
+    }
 }

@@ -3,7 +3,9 @@ package com.moises.escuela.services.maestros;
 import com.moises.escuela.dto.maestros.MaestroRequest;
 import com.moises.escuela.dto.maestros.MaestroResponse;
 import com.moises.escuela.entities.Maestro;
+import com.moises.escuela.exceptions.EntidadRelacionadaException;
 import com.moises.escuela.mappers.MaestroMapper;
+import com.moises.escuela.repositories.GrupoRepository;
 import com.moises.escuela.repositories.MaestroRepository;
 import com.moises.escuela.utils.ServiceUtils;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,8 @@ import java.util.List;
 public class MaestroServiceImpl  implements MaestroService{
 
     private final MaestroRepository maestroRepository;
+
+    private final GrupoRepository grupoRepository;
 
     private final MaestroMapper maestroMapper;
 
@@ -67,7 +71,9 @@ public class MaestroServiceImpl  implements MaestroService{
     public void eliminar(Long id) {
         Maestro maestro = obtenerMaestro(id);
         log.info("Eliminando maestro con id: {}", id);
-
+        if (grupoRepository.existsByMaestroId(id))
+            throw  new EntidadRelacionadaException(
+                    "No se puede eliminar el maestro, ya que tiene grupos asignados");
         maestroRepository.delete(maestro);
 
         log.info("Maestro {} eliminando correctamente", maestro.getNombre());
@@ -78,7 +84,7 @@ public class MaestroServiceImpl  implements MaestroService{
     }
 
     private void validarDatosUnicos(MaestroRequest request) {
-        log.info("Validadndo email único...");
+        log.info("Validando email único...");
 
         if (maestroRepository.existsByEmailIgnoreCase(request.email().trim()))
             throw new IllegalArgumentException("Ya existe un maestro registrando con el email:" + request.email());
@@ -89,7 +95,7 @@ public class MaestroServiceImpl  implements MaestroService{
 
     }
     private void validarCambiosUnicos(MaestroRequest request, Long id) {
-        log.info("Validadndo email único...");
+        log.info("Validando email único...");
 
         if (maestroRepository.existsByemailIgnoreCaseAndIdNot(request.email().trim(), id))
             throw new IllegalArgumentException("Ya existe un maestro registrando con el email:" + request.email());
