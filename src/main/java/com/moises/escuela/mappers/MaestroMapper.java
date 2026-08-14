@@ -18,8 +18,7 @@ public class MaestroMapper implements CommonMapper<MaestroRequest, MaestroRespon
     @Override
     public Maestro requestAEntidad(MaestroRequest request) {
 
-        if (request ==null)
-        return null;
+        if (request ==null) return null;
         return Maestro.builder()
                 .nombre(request.nombre().trim())
                 .apellidoPaterno(request.apellidoPaterno().trim())

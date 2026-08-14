@@ -1,8 +1,7 @@
 package com.moises.escuela.enums;
 
-import com.moises.escuela.entities.Curso;
 import com.moises.escuela.exceptions.RecursoNoEncontradoException;
-import com.moises.escuela.utils.StringCustonUtils;
+import com.moises.escuela.utils.StringCustomUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -20,12 +19,12 @@ public enum DiaSemana {
     private final String descripcion;
 
     public static DiaSemana obtenerDiaSemanaPorDescripcion(String descripcion) {
-        StringCustonUtils.validarNoVacio(descripcion, "La descripción es requerida");
+        StringCustomUtils.validarNoVacio(descripcion, "La descripción es requerida");
 
-        String descripcionNormalizada = StringCustonUtils.quitarAcentos(descripcion);
+        String descripcionNormalizada = StringCustomUtils.quitarAcentos(descripcion);
 
         for (DiaSemana diaSemana : values()) {
-            if (StringCustonUtils.quitarAcentos(diaSemana.descripcion).equalsIgnoreCase(descripcionNormalizada))
+            if (StringCustomUtils.quitarAcentos(diaSemana.descripcion).equalsIgnoreCase(descripcionNormalizada))
                 return diaSemana;
         }
 

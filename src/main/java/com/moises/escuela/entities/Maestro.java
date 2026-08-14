@@ -1,6 +1,6 @@
 package com.moises.escuela.entities;
 
-import com.moises.escuela.utils.StringCustonUtils;
+import com.moises.escuela.utils.StringCustomUtils;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,24 +38,25 @@ public class Maestro {
     @Column(name = "TELEFONO", nullable = false, length = 10, unique = true)
     private String telefono;
 
+    @Builder.Default
     @OneToMany(mappedBy = "maestro", fetch = FetchType.LAZY)
     private List<Grupo> grupos = new ArrayList<>();
 
     private void validarDatos(String nombre, String apellidoPaterno,
                               String apellidoMaterno, String email, String telefono) {
-        StringCustonUtils.validarTamanio(nombre, 1, 50,
+        StringCustomUtils.validarTamanio(nombre, 1, 50,
                 "El nombre es requerido y debe tener entre 1 y 50 caracteres");
 
-        StringCustonUtils.validarTamanio(apellidoPaterno, 1, 50,
+        StringCustomUtils.validarTamanio(apellidoPaterno, 1, 50,
                 "El apelido paterno es requerido y debe tener entre 1 y 50 caracteres");
 
-        StringCustonUtils.validarTamanio(apellidoMaterno, 1, 50,
+        StringCustomUtils.validarTamanio(apellidoMaterno, 1, 50,
                 "El apelido Materno es requerido y debe tener entre 1 y 50 caracteres");
 
-        StringCustonUtils.validarTamanio(email, 1, 100,
+        StringCustomUtils.validarTamanio(email, 1, 100,
                 "El email es requerido y debe tener entre 1 y 100 caracteres");
 
-        StringCustonUtils.validarTamanio(telefono, 10, 10,
+        StringCustomUtils.validarTamanio(telefono, 10, 10,
                 "La matrícula es requerida y debe tener exactamente 10 caracteres");
 
 
